@@ -20,7 +20,7 @@ Directory | Description
 * You can either clone the repository using your favorite GitHub client or download the ZIP file from here.
 * Extract the contents of the ZIP file to any folder on your computer. All the examples are located in the Aspose.OCR-for-C folder.
 * Open the solution file in Visual Studio and build the project.
-* NuGet package for Aspose.OCR for C++ is included in the project. Change the NuGet source to a local folder with Aspose.OCR.Net.Core.1.0.1-beta0001.nupkg
+* On the first run, the dependencies will automatically be downloaded via NuGet.
 * Data folder at the root folder contains input files. It is mandatory that you download the Data folder along with the examples project.
 * Open **main.cpp**, all the examples are called from here.
 * Uncomment the examples you want to run from within the project.
