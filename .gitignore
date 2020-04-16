@@ -1,0 +1,26 @@
+.vs
+Temp/
+obj/
+classes/
+generated/
+*.suo
+bin/
+* Out*
+*_out_*
+* out*
+*.ldb
+Thumbs.db
+_ReSharper*/
+out/
+*.lic
+*.user
+Out/
+packages/
+TestResults/
+*.vsmdi
+test-results/
+*.userprefs
+*.vsmdi
+*.gitattributes
+*.log
+x64
