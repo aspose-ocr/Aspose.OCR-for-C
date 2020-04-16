@@ -60,10 +60,10 @@ int main() {
 	//Uncomment the one you want to try out
 	//SetLicense();
 
-	GetSkew();
-	PerformOcrOnImage();
-	WorkingWithDifferentLanguages();
-	RecognizeLine();
+	//GetSkew();
+	//PerformOcrOnImage();
+	//WorkingWithDifferentLanguages();
+	//RecognizeLine();
 
 	//Stop before exiting
 	std::wcout << "\nProgram Finished. Press Enter to Exit....";
