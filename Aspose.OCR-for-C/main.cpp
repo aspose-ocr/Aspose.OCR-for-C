@@ -34,6 +34,23 @@ void PerformOcrOnImage() {
 	std::wcout << "PerformOcrOnImage executed successfully" << L'\n';
 }
 
+void PerformOcrOnImageWithoutAutomaticTextAreaDetection() {
+	// ExStart: PerformOcrOnImageWithoutAutomaticTextAreaDetection
+	std::string image_path = "../Data/Source/sample.png";
+
+	// Prepare buffer for result (in symbols, len_byte = len * sizeof(wchar_t))
+	const size_t len = 4096;
+	wchar_t buffer[len] = { 0 };
+
+	size_t size = aspose::ocr::page_all(image_path.c_str(), buffer, len, true);
+
+	//Print result
+	std::wcout << buffer << L"\n";
+
+	// ExEnd: PerformOcrOnImageWithoutAutomaticTextAreaDetection
+	std::wcout << "PerformOcrOnImageWithoutAutomaticTextAreaDetection executed successfully" << L'\n';
+}
+
 void PrepareRectangles() {
 	// ExStart: PrepareRectangles
 	std::string image_path = "../Data/Source/sample.png";
@@ -70,6 +87,25 @@ void SpecifyAllowedCharacters() {
 
 	// ExEnd: SpecifyAllowedCharacters
 	std::wcout << "SpecifyAllowedCharacters executed successfully" << L'\n';
+}
+
+void SpecifyAllowedCharactersWithoutAutomaticTextAreaDetection() {
+	// ExStart: SpecifyAllowedCharactersWithoutAutomaticTextAreaDetection
+	std::string image_path = "../Data/Source/sample.png";
+
+	// Prepare buffer for result (in symbols, len_byte = len * sizeof(wchar_t))
+	const size_t len = 4096;
+	wchar_t buffer[len] = { 0 };
+
+	size_t size = aspose::ocr::page_abc_all(image_path.c_str(), buffer, len,
+		L" !\",#$%&()*+,-./0123456789:;<=>?@[\\]_`{|}"
+		"~ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", false);
+
+	//Print result
+	std::wcout << buffer << L"\n";
+
+	// ExEnd: SpecifyAllowedCharactersWithoutAutomaticTextAreaDetection
+	std::wcout << "SpecifyAllowedCharactersWithoutAutomaticTextAreaDetection executed successfully" << L'\n';
 }
 
 void SpecifyAllowedCharactersWithinRectangle() {
@@ -168,6 +204,8 @@ int main() {
 	//RecognizeLine();
 	//RecognizeLineWithAllowedCharacters();
 	//WorkingWithDifferentLanguages();
+	//PerformOcrOnImageWithoutAutomaticTextAreaDetection();
+	//SpecifyAllowedCharactersWithoutAutomaticTextAreaDetection();
 
 	//Stop before exiting
 	std::wcout << "\nProgram Finished. Press Enter to Exit....";
