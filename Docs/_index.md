@@ -9,7 +9,7 @@ url: /cpp/
 
 **![Aspose.OCR for C++ Product Logo](home_1.png)**
 
-**Welcome to the Aspose.OCR for C++..**
+**Welcome to the Aspose.OCR for C++...**
 
 Aspose.OCR for C++ is a native C++ library that allows developers to add OCR functionality to their applications without requiring any additional tool or API. Aspose.OCR for C++ allows extracting text from images having different fonts and styles - saving the time and effort involved in developing an OCR solution from scratch.
 
