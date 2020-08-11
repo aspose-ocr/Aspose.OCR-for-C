@@ -70,15 +70,15 @@ New API:bool asposeocr_get_state() | Return license status. size_t asposeocr_pag
 ## Example (C++17 since filesystem)
 {{< highlight cpp >}}
 
-#include \<iostream>
+#include <iostream>
 
-#include \<aspose_ocr.h>
+#include <aspose_ocr.h>
 
-#include \<filesystem>
+#include <filesystem>
 
-#include \<corecrt_io.h>
+#include <corecrt_io.h>
 
-#include \<fcntl.h>
+#include <fcntl.h>
 
 int main()
 {
