@@ -160,7 +160,7 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\packages\Microsoft.ML.OnnxRuntime.1.3.0\build\native\Microsoft.ML.OnnxRuntime.targets" Condition="Exists('..\packages\Microsoft.ML.OnnxRuntime.1.3.0\build\native\Microsoft.ML.OnnxRuntime.targets')" />
-    <Import Project="..\packages\Aspose.Ocr.Cpp.20.7.1\build\native\Aspose.Ocr.Cpp.targets" Condition="Exists('..\packages\Aspose.Ocr.Cpp.20.7.1\build\native\Aspose.Ocr.Cpp.targets')" />
+    <Import Project="..\packages\Aspose.Ocr.Cpp.20.9.0\build\native\Aspose.Ocr.Cpp.targets" Condition="Exists('..\packages\Aspose.Ocr.Cpp.20.9.0\build\native\Aspose.Ocr.Cpp.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -168,6 +168,6 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.ML.OnnxRuntime.1.3.0\build\native\Microsoft.ML.OnnxRuntime.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ML.OnnxRuntime.1.3.0\build\native\Microsoft.ML.OnnxRuntime.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.ML.OnnxRuntime.1.3.0\build\native\Microsoft.ML.OnnxRuntime.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.ML.OnnxRuntime.1.3.0\build\native\Microsoft.ML.OnnxRuntime.targets'))" />
-    <Error Condition="!Exists('..\packages\Aspose.Ocr.Cpp.20.7.1\build\native\Aspose.Ocr.Cpp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Aspose.Ocr.Cpp.20.7.1\build\native\Aspose.Ocr.Cpp.targets'))" />
+    <Error Condition="!Exists('..\packages\Aspose.Ocr.Cpp.20.9.0\build\native\Aspose.Ocr.Cpp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Aspose.Ocr.Cpp.20.9.0\build\native\Aspose.Ocr.Cpp.targets'))" />
   </Target>
 </Project>

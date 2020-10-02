@@ -189,6 +189,27 @@ void GetSkew() {
 	std::wcout << "GetSkew executed successfully" << L'\n';
 }
 
+void PerformOCROnImageFromUrl() {
+	// ExStart: PerformOCROnImageFromUrl
+	const char* uri = "https://www.castlegateit.co.uk/wp-content/uploads/2016/09/justified_text.png";
+	rect rectangles[3] = { {90, 186, 775, 95} , { 928, 606, 790, 160 }, { 934, 370, 720, 54 } };
+	const size_t len = 4096;
+	wchar_t buffer[len] = { 0 };
+
+	RecognitionSettings settings;
+	settings.all_image = true;
+	settings.correct_skew = false;
+	settings.alphabet = L"";
+	settings.format = export_format::json;
+	settings.rectangles = rectangles;
+	settings.rectangles_size = 3;
+
+	size_t res = asposeocr_page_from_uri(uri, buffer, len, settings);
+	std::wcout << buffer << L"\n";
+	// ExEnd: PerformOCROnImageFromUrl
+	std::wcout << "PerformOCROnImageFromUrl executed successfully" << L'\n';
+}
+
 int main() {
 	//output console
 	_setmode(_fileno(stdout), _O_U16TEXT);
@@ -206,6 +227,7 @@ int main() {
 	//WorkingWithDifferentLanguages();
 	//PerformOcrOnImageWithoutAutomaticTextAreaDetection();
 	//SpecifyAllowedCharactersWithoutAutomaticTextAreaDetection();
+	//PerformOCROnImageFromUrl();
 
 	//Stop before exiting
 	std::wcout << "\nProgram Finished. Press Enter to Exit....";
