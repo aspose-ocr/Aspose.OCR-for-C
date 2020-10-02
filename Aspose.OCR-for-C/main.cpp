@@ -204,7 +204,7 @@ void PerformOCROnImageFromUrl() {
 	settings.rectangles = rectangles;
 	settings.rectangles_size = 3;
 
-	size_t res = asposeocr_page_from_uri(uri, buffer, len, settings);
+	size_t res = aspose::ocr::page_from_uri(uri, buffer, len, settings);
 	std::wcout << buffer << L"\n";
 	// ExEnd: PerformOCROnImageFromUrl
 	std::wcout << "PerformOCROnImageFromUrl executed successfully" << L'\n';
