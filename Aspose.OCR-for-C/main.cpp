@@ -210,6 +210,29 @@ void PerformOCROnImageFromUrl() {
 	std::wcout << "PerformOCROnImageFromUrl executed successfully" << L'\n';
 }
 
+void OCROperationWithLanguageSelection() {
+	// ExStart: OCROperationWithLanguageSelection
+	std::string image_path = "../Data/Source/sample.png";
+	rect rectangles[2] = { {90, 186, 775, 95} , { 928, 606, 790, 160 } };
+	const size_t len = 4096;
+	wchar_t buffer[len] = { 0 };
+
+	RecognitionSettings settings;
+	settings.all_image = false; // default
+	settings.correct_skew = true; // default
+	settings.alphabet = L"1234567890";
+	settings.format = export_format::text;
+	settings.rectangles = rectangles;
+	settings.rectangles_size = 2;
+	settings.skew = 5;
+	settings.language_alphabet = language::en; // auto, en, de, pt, es, fr, it
+
+	size_t res_len = aspose::ocr::page_settings(image_path.c_str(), buffer, len, settings);
+	std::wcout << buffer;
+	// ExEnd: OCROperationWithLanguageSelection
+	std::wcout << "OCROperationWithLanguageSelection executed successfully" << L'\n';
+}
+
 int main() {
 	//output console
 	_setmode(_fileno(stdout), _O_U16TEXT);
@@ -228,6 +251,7 @@ int main() {
 	//PerformOcrOnImageWithoutAutomaticTextAreaDetection();
 	//SpecifyAllowedCharactersWithoutAutomaticTextAreaDetection();
 	//PerformOCROnImageFromUrl();
+	//OCROperationWithLanguageSelection();
 
 	//Stop before exiting
 	std::wcout << "\nProgram Finished. Press Enter to Exit....";
