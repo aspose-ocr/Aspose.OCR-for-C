@@ -1,3 +1,4 @@
+![Nuget](https://img.shields.io/nuget/v/Aspose.ocr.Cpp) ![Nuget](https://img.shields.io/nuget/dt/Aspose.ocr.Cpp)
 # Optical Character Recognition (OCR) C++ API
 
 [Aspose.OCR for C++](https://products.aspose.com/ocr/cpp) is a standalone OCR API that enhances your C++ apps to [perform OCR on JPEG, PNG, & BMP images](hhttps://docs.aspose.com/ocr/cpp/supported-file-formats/) for extraction of textual content.
