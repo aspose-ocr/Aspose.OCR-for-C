@@ -20,9 +20,15 @@ Directory | Description
 
 - Recognize characters from images.
 - Calculate the skew angle of images.
-- Currently it supports English language.
+- Calculate the bounding boxes of lines or paragraphs
+- Currently, it supports 20 European languages and Chinese.
 - Auto-align image and autodetect text areas.
 - Get a single line and recognize it.
+- Get possible choices for each recognized character.
+- Pass URI and recognize the image from it.
+- Recognize multiple images in a folder or zip archive.
+- Get result in JSON format.
+- Save results in text, DOCX or PDF formats
 
 ## Read Image Formats for OCR
 
