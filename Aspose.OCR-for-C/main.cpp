@@ -232,7 +232,6 @@ void OCROperationWithLanguageSelection() {
 	std::wcout << "OCROperationWithLanguageSelection executed successfully" << L'\n';
 }
 
-
 void RecognizeImageIgnoredCharacters() {
 	// ExStart: RecognizeImageIgnoredCharacters
 	std::string image_path = "../Data/Source/0001460985.jpg";
@@ -250,13 +249,210 @@ void RecognizeImageIgnoredCharacters() {
 	std::wcout << "RecognizeImageIgnoredCharacters executed successfully" << L'\n';
 }
 
+void GetJson() {
+	// ExStart: GetJson
+	std::string image_path = "../Data/Source/sample.png";
+
+	// Prepare buffer for result (in symbols, len_byte = len * sizeof(wchar_t))
+	const size_t len = 4096;
+	wchar_t buffer[len] = { 0 };
+
+	RecognitionSettings settings;
+	settings.format = export_format::json;
+	size_t res_len = aspose::ocr::page_settings(image_path.c_str(), buffer, len, settings);
+	std::wcout << buffer;
+
+	// ExEnd: GetJson
+	std::wcout << "GetJson executed successfully" << L'\n';
+
+	// JSON result contains
+	// {"recognitionText":"full text\n",
+	//		"recognitionAreasData":
+	//		[
+	//			{"Rectangle":{"height":0,"width":0,"x":0,"y":0},"text":"text in partiqular rectangler\n"},
+	//			{"Rectangle":{"height": 0,"width": 0,"x":0,"y":0},"text":"text in partiqular rectangler\n\n"},
+	//		]
+	//	}
+}
+
+void SaveDocx() {
+	// ExStart: SaveDocx
+	std::string image_path = "../Data/Source/sample.png";
+
+	RecognitionSettings settings;
+	settings.format = export_format::json;// or text
+	settings.language_alphabet = language::chi;
+	settings.save_format = file_format::docx;
+	aspose::ocr::page_save(image_path.c_str(), "new_file.docx", settings);
+	// ExEnd: SaveDocx
+	std::wcout << "SaveDocx executed successfully" << L'\n';
+}
+
+void SavePdf() {
+	// ExStart: GetJson
+	std::string image_path = "../Data/Source/sample.png";
+
+	RecognitionSettings settings;
+	settings.format = export_format::text;// or json
+	settings.save_format = file_format::pdf;
+	aspose::ocr::page_save(image_path.c_str(), "new_file.pdf", settings);
+	// doesn't support chinese alphabet
+	// 
+	// ExEnd: SavePdf
+	std::wcout << "SavePdf executed successfully" << L'\n';
+}
+
+void SetCustomThreshold() {
+// ExStart: SetCustomThreshold
+std::string image_path = "../Data/Source/sample.png";
+
+// Prepare buffer for result (in symbols, len_byte = len * sizeof(wchar_t))
+const size_t len = 4096;
+wchar_t buffer[len] = { 0 };
+
+RecognitionSettings settings;
+settings.threshold_value = 10; // auto threshold calculation will be ignored
+
+size_t res_len = aspose::ocr::page_settings(image_path.c_str(), buffer, len, settings);
+std::wcout << buffer; 
+// ExEnd: SetCustomThreshold
+std::wcout << "SetCustomThreshold executed successfully" << L'\n';
+}
+
+void SetLinesFiltration() {
+	// ExStart: SetLinesFiltration
+	std::string image_path = "../Data/Source/table3.jpg";
+
+	// Prepare buffer for result (in symbols, len_byte = len * sizeof(wchar_t))
+	const size_t len = 4096;
+	wchar_t buffer[len] = { 0 };
+
+	RecognitionSettings settings;
+	settings.lines_filtration = true; // works good on the images with table and without areas detection
+	settings.all_image = true;// switch off areas detection
+
+	size_t res_len = aspose::ocr::page_settings(image_path.c_str(), buffer, len, settings);
+	std::wcout << buffer;
+	// ExEnd: SetLinesFiltration
+	std::wcout << "SetLinesFiltration executed successfully" << L'\n';
+}
+
+void PerformOcrOnImagesInFolder() {
+// ExStart: PerformOcrOnImagesInFolder
+std::string image_path = "../Data/Source";
+
+// Prepare buffer for result (in symbols, len_byte = len * sizeof(wchar_t))
+const size_t len = 4096;
+wchar_t buffer[len] = { 0 };
+
+RecognitionSettings settings;//default
+
+size_t res_len = aspose::ocr::pages_multi(image_path.c_str(), buffer, len, settings);
+std::wcout << buffer;
+// ExEnd: PerformOcrOnImagesInFolder
+std::wcout << "PerformOcrOnImagesInFolder executed successfully" << L'\n';
+}
+
+void PerformOcrOnImagesInZip() {
+	// ExStart: PerformOcrOnImagesInZip
+	std::string image_path = "../Data/Source/Source.zip";
+
+	// Prepare buffer for result (in symbols, len_byte = len * sizeof(wchar_t))
+	const size_t len = 4096;
+	wchar_t buffer[len] = { 0 };
+
+	RecognitionSettings settings;//default
+
+	size_t res_len = aspose::ocr::pages_multi(image_path.c_str(), buffer, len, settings);
+	std::wcout << buffer;
+	// ExEnd: PerformOcrOnImagesInZip
+	std::wcout << "PerformOcrOnImagesInZip executed successfully" << L'\n';
+}
+
+void GetRectanglesParagraphs() {
+	// ExStart: GetRectangles
+	std::string image_path = "../Data/Source/sample.png";
+
+	// if you want to get a paragraphs  - don't set all_image = true
+	// first calculate rectangles number
+	size_t res_len = aspose::ocr::get_rectangles_number(image_path.c_str(), areas_type::paragraphs, false);
+	std::wcout << "paragraphs number: " << res_len << std::endl;
+
+	// allocate memory for rectangles
+	rect* rectangles = new rect[res_len];
+	// be careful and set the same settings for get_rectangles_number and get_rectangles
+	res_len = aspose::ocr::get_rectangles(image_path.c_str(), areas_type::paragraphs, false, rectangles, res_len);
+
+	std::wcout << "paragraphs: " << std::endl;
+	for (size_t i = 0; i < res_len; i++)
+	{
+		std::wcout << " x: " << rectangles[i].x << " y: " << rectangles[i].y << " width: " << rectangles[i].width << " height: " << rectangles[i].height << std::endl;
+	}
+	delete[] rectangles;
+	// ExEnd: GetRectangles
+	std::wcout << "GetRectangles executed successfully" << L'\n';
+}
+
+void GetRectanglesLines() {
+	// ExStart: GetRectanglesLines
+	std::string image_path = "../Data/Source/sample.png";
+
+	// if you want to get lines in paragraphs  - set all_image = false (useful for images with columns, pictures, and difficult structure
+	// in case you set all_image = true - you will get lines defined across the entire width of the image (useful for images with text only)
+
+	// first calculate rectangles number
+	size_t res_len = aspose::ocr::get_rectangles_number(image_path.c_str(), areas_type::lines, false);
+	std::wcout << "lines number: " << res_len << std::endl;
+
+	// allocate memory for rectangles
+	rect* rectangles = new rect[res_len];
+	// be careful and set the same settings for get_rectangles_number and get_rectangles
+	res_len = aspose::ocr::get_rectangles(image_path.c_str(), areas_type::lines, false, rectangles, res_len); 
+
+	std::wcout << "lines: " << std::endl;
+	for (size_t i = 0; i < res_len; i++)
+	{
+		std::wcout << " x: " << rectangles[i].x << " y: " << rectangles[i].y << " width: " << rectangles[i].width << " height: " << rectangles[i].height << std::endl;
+	}
+	delete [] rectangles;
+	// ExEnd: GetRectanglesLines
+	std::wcout << "GetRectanglesLines executed successfully" << L'\n';
+}
+
+void GetChoicesForEachCharacterInResult() {
+	// ExStart: GetChoicesForEachCharacterInResult
+	std::string image_path = "../Data/Source/sample.png";
+
+	// allocate memory for 5 characters choices +1 on '\0'
+	const size_t len = 4096; // estimated  length of the text on the image
+	wchar_t buffer[len][6] = { 0 };
+
+	RecognitionSettings settings; // default
+	size_t res_len = aspose::ocr::page_characters_choices(image_path.c_str(), buffer, len, settings);
+	// res_len - the real length of the text on the image
+	for (size_t i = 0; i < res_len; i++)
+	{
+		// print recognized letter
+		std::wcout << buffer[i][0] << " - choices: ";
+		// or print all cases std::wcout << buffer[i];
+		for (size_t j = 1; j < 5; j++)
+		{
+			std::wcout << buffer[i][j] << " ";
+		}
+		std::wcout << std::endl;
+	}
+
+	std::wcout << std::endl;
+	// ExEnd: GetChoicesForEachCharacterInResult
+	std::wcout << "GetChoicesForEachCharacterInResult executed successfully" << L'\n';
+}
 
 int main() {
 	//output console
 	_setmode(_fileno(stdout), _O_U16TEXT);
 
 	//Uncomment the one you want to try out
-	SetLicense();
+	//SetLicense();
 
 	//GetSkew();
 	//PerformOcrOnImage();
@@ -271,6 +467,16 @@ int main() {
 	//PerformOCROnImageFromUrl();
 	//OCROperationWithLanguageSelection();
 	//RecognizeImageIgnoredCharacters();
+	//GetJson();
+	//SaveDocx();
+	//SavePdf();
+	//SetCustomThreshold();
+	//SetLinesFiltration();
+	//PerformOcrOnImagesInFolder();
+	//PerformOcrOnImagesInZip();
+	//GetRectanglesParagraphs();
+	//GetRectanglesLines();
+	//GetChoicesForEachCharacterInResult();
 	//Stop before exiting
 	std::wcout << "\nProgram Finished. Press Enter to Exit....";
 }
