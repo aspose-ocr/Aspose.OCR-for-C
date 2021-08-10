@@ -225,20 +225,38 @@ void OCROperationWithLanguageSelection() {
 	settings.rectangles = rectangles;
 	settings.rectangles_size = 2;
 	settings.skew = 5;
-	settings.language_alphabet = language::en; // auto, en, de, pt, es, fr, it
-
+	settings.language_alphabet = language::eng; //	none, eng,	deu, por, spa, fra, ita, cze, dan, dum, est, fin, lav, lit, nor, pol, rum, srp_hrv, slk, slv, swe, chi
 	size_t res_len = aspose::ocr::page_settings(image_path.c_str(), buffer, len, settings);
 	std::wcout << buffer;
 	// ExEnd: OCROperationWithLanguageSelection
 	std::wcout << "OCROperationWithLanguageSelection executed successfully" << L'\n';
 }
 
+
+void RecognizeImageIgnoredCharacters() {
+	// ExStart: RecognizeImageIgnoredCharacters
+	std::string image_path = "../Data/Source/0001460985.jpg";
+
+	// Prepare buffer for result (in symbols, len_byte = len * sizeof(wchar_t))
+	const size_t len = 4096;
+	wchar_t buffer[len] = { 0 };
+
+	RecognitionSettings settings;
+	settings.ignoredCharacters = L"85";
+	size_t res_len = aspose::ocr::page_settings(image_path.c_str(), buffer, len, settings);
+	std::wcout << buffer; // instead of 8 and 5 we will see the nearest characters
+
+	// ExEnd: RecognizeImageIgnoredCharacters
+	std::wcout << "RecognizeImageIgnoredCharacters executed successfully" << L'\n';
+}
+
+
 int main() {
 	//output console
 	_setmode(_fileno(stdout), _O_U16TEXT);
 
 	//Uncomment the one you want to try out
-	//SetLicense();
+	SetLicense();
 
 	//GetSkew();
 	//PerformOcrOnImage();
@@ -252,7 +270,7 @@ int main() {
 	//SpecifyAllowedCharactersWithoutAutomaticTextAreaDetection();
 	//PerformOCROnImageFromUrl();
 	//OCROperationWithLanguageSelection();
-
+	//RecognizeImageIgnoredCharacters();
 	//Stop before exiting
 	std::wcout << "\nProgram Finished. Press Enter to Exit....";
 }
