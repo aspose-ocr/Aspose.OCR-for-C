@@ -447,6 +447,107 @@ void GetChoicesForEachCharacterInResult() {
 	std::wcout << "GetChoicesForEachCharacterInResult executed successfully" << L'\n';
 }
 
+void PreprocessImageCase1() {
+	// ExStart: PreprocessImageCStyle
+	std::string image_path = "../Data/Source/sample.png";
+
+	RecognitionSettings settings; // default
+	custom_preprocessing_filters filters_;
+	filters_.filter_1 = OCR_IMG_PREPROCESS_GRAYSCALE;
+	filters_.filter_2 = OCR_IMG_PREPROCESS_THRESHOLD(20);
+	filters_.filter_3 = OCR_IMG_PREPROCESS_BINARIZE;
+	filters_.filter_4 = OCR_IMG_PREPROCESS_RESIZE(1500, 2500);
+	filters_.filter_5 = OCR_IMG_PREPROCESS_SCALE(0.8);
+	filters_.filter_6 = OCR_IMG_PREPROCESS_DILATE;
+	filters_.filter_7 = OCR_IMG_PREPROCESS_ROTATE(-20);
+	filters_.filter_8 = OCR_IMG_PREPROCESS_INVERT;
+
+	asposeocr_preprocess_page_and_save(image_path.c_str(), "../output_img_name.png", filters_);
+
+	// ExEnd: PreprocessImageCStyle
+	std::wcout << "PreprocessImageCStyle executed successfully" << L'\n';
+}
+
+void PreprocessImageCase2() {
+	// ExStart: PreprocessImageCPlusStyle
+	std::string image_path = "../Data/Source/sample.png";
+
+	filter_operation filters[4];
+	filters[0] = OCR_IMG_Resize(1000, 1000);
+	filters[1] = OCR_IMG_Scale(0.9);
+	//filters[2] = OCR_IMG_Threshold(100);
+	//filters[3] = OCR_IMG_Dilate();
+	//filters[4] = OCR_IMG_Invert();
+	//filters[5] = OCR_IMG_Rotate(10);
+	//filters[6] = OCR_IMG_Grayscale();
+
+	aspose::ocr::preprocess_page_and_save(image_path.c_str(), "../output_img_name.png", filters, 2);
+
+	// ExEnd: PreprocessImageCPlusStyle
+	std::wcout << "PreprocessImageCPlusStyle executed successfully" << L'\n';
+}
+
+void PreprocessAndRecognize() {
+	// ExStart: PreprocessAndRecognize
+	std::string image_path = "../Data/Source/sample.png";
+
+	const size_t len = 4096; // estimated  length of the text on the image
+	wchar_t buffer[len] = { 0 };
+
+	RecognitionSettings settings; // default
+	custom_preprocessing_filters filters_;
+	filters_.filter_1 = OCR_IMG_PREPROCESS_INVERT;
+	filters_.filter_2 = OCR_IMG_PREPROCESS_THRESHOLD(20);
+	filters_.filter_3 = OCR_IMG_PREPROCESS_BINARIZE;
+	filters_.filter_4 = OCR_IMG_PREPROCESS_RESIZE(1000, 1000);
+	filters_.filter_5 = OCR_IMG_PREPROCESS_SCALE(0.3);
+	filters_.filter_6 = OCR_IMG_PREPROCESS_DILATE;
+	filters_.filter_7 = OCR_IMG_PREPROCESS_ROTATE(-20);
+	filters_.filter_8 = OCR_IMG_PREPROCESS_GRAYSCALE;
+
+	settings.filters = filters_;
+	size_t res = asposeocr_page_settings(image_path.c_str(), buffer, len, settings);
+	std::wcout << buffer;
+
+	// ExEnd: PreprocessAndRecognize
+	std::wcout << "PreprocessAndRecognize executed successfully" << L'\n';
+}
+
+
+void PerformOcrOnListOfImagesCase1() {
+	// ExStart: PerformOcrOnListOfImagesCPlusStyle
+
+	// Prepare buffer for result (in symbols, len_byte = len * sizeof(wchar_t))
+	const size_t len = 4096;
+	wchar_t buffer[len] = { 0 };
+
+	RecognitionSettings settings;//default
+	//settings.filters.filter_1 = OCR_IMG_PREPROCESS_GRAYSCALE;
+
+	const int files_number = 2;
+	const char** files = new const char* [files_number];
+	files[0] = "../Data/Source/sample.png";
+	files[1] = "../Data/Source/sample_line.jpg";
+	aspose::ocr::pages_multi_array(files, files_number,  buffer, len, settings);
+	std::wcout << buffer;
+	// ExEnd: PerformOcrOnListOfImagesCPlusStyle
+	std::wcout << "PerformOcrOnListOfImagesCPlusStyle executed successfully" << L'\n';
+}
+
+void PerformOcrOnListOfImagesCase2() {
+	// ExStart: PerformOcrOnListOfImagesCStyle
+	// Prepare buffer for result (in symbols, len_byte = len * sizeof(wchar_t))
+	const size_t len = 4096;
+	wchar_t buffer[len] = { 0 };
+
+	RecognitionSettings settings;//default
+
+	aspose::ocr::page_settings("../Data/Source/sample.png;../Data/Source/sample_line.jpg", buffer, len, settings);
+	std::wcout << buffer;
+	// ExEnd: PerformOcrOnListOfImagesCStyle
+	std::wcout << "PerformOcrOnListOfImagesCStyle executed successfully" << L'\n';
+}
+
 int main() {
 	//output console
 	_setmode(_fileno(stdout), _O_U16TEXT);
@@ -477,6 +578,12 @@ int main() {
 	//GetRectanglesParagraphs();
 	//GetRectanglesLines();
 	//GetChoicesForEachCharacterInResult();
-	//Stop before exiting
+	//// Release 21.10
+	//PreprocessImageCase1();	
+	//PreprocessAndRecognize();
+	//PerformOcrOnListOfImagesCase1();
+	//PerformOcrOnListOfImagesCase2();
+	//PreprocessImageCase2();
+	//// Stop before exiting
 	std::wcout << "\nProgram Finished. Press Enter to Exit....";
 }
