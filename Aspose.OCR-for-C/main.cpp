@@ -266,13 +266,16 @@ void GetJson() {
 	std::wcout << "GetJson executed successfully" << L'\n';
 
 	// JSON result contains
-	// {"recognitionText":"full text\n",
-	//		"recognitionAreasData":
-	//		[
-	//			{"Rectangle":{"height":0,"width":0,"x":0,"y":0},"text":"text in partiqular rectangler\n"},
-	//			{"Rectangle":{"height": 0,"width": 0,"x":0,"y":0},"text":"text in partiqular rectangler\n\n"},
-	//		]
-	//	}
+	//{"pages": [
+	//{
+	//	"text":"More than one analysis is shown for wells UE-25b#l, USW H1, USW VH-1, and\nUE-29af2. The multiple analyses permit a comparison of water compositions as\na function of volume of water pumped. Ihe sample obtained on July 20, 1982,\nfrom UE-25b#1 was collected after 28 days of pumping of an interval 863 t\n ************* Trial Licenses ************* \n",
+	//		"areas" : [
+	//	{
+	//		"rectangle":{
+	//			"height":530,
+	//				"width" : 2025,
+	//				"x" : 166,
+	//				"y" : 357},
 }
 
 void SaveDocx() {
@@ -548,6 +551,34 @@ void PerformOcrOnListOfImagesCase2() {
 	std::wcout << "PerformOcrOnListOfImagesCStyle executed successfully" << L'\n';
 }
 
+void PerformOcrSaveFile() {
+	// ExStart: PerformOcrSaveFile
+
+	RecognitionSettings settings;
+	//settings.save_format = file_format::docx;
+	//settings.all_image = false;
+	settings.format = export_format::json;
+	//settings.save_format = file_format::pdf;
+
+	aspose::ocr::page_save("../Data/Source/sample.png;../Data/Source/sample_line.jpg", "cpp_res.json", settings);
+	// ExEnd: PerformOcrOnListOfImagesCStyle
+	std::wcout << "PerformOcrSaveFile executed successfully" << L'\n';
+}
+
+void PerformOcrAutoDenoising() {
+	// ExStart: PerformOcrAutoDenoising
+	// Prepare buffer for result (in symbols, len_byte = len * sizeof(wchar_t))
+	const size_t len = 4096;
+	wchar_t buffer[len] = { 0 };
+	RecognitionSettings settings;
+	settings.auto_denoising = true;
+
+	aspose::ocr::page_settings("../Data/Source/test_300.jpg", buffer, len, settings);
+	std::wcout << buffer;
+	// ExEnd: PerformOcrOnListOfImagesCStyle
+	std::wcout << "PerformOcrAutoDenoising executed successfully" << L'\n';
+}
+
 int main() {
 	//output console
 	_setmode(_fileno(stdout), _O_U16TEXT);
@@ -584,6 +615,9 @@ int main() {
 	//PerformOcrOnListOfImagesCase1();
 	//PerformOcrOnListOfImagesCase2();
 	//PreprocessImageCase2();
+	//// Release 22.6
+	//PerformOcrSaveFile();
+	PerformOcrAutoDenoising();
 	//// Stop before exiting
 	std::wcout << "\nProgram Finished. Press Enter to Exit....";
 }
