@@ -189,6 +189,19 @@ void GetSkew() {
 	std::wcout << "GetSkew executed successfully" << L'\n';
 }
 
+void performOCROnTif()
+{
+	const char* uri = "../Data/Source/image.tif";
+	RecognitionSettings settings;
+    settings.all_image = true;
+
+    const size_t len = 4096;
+    wchar_t buffer[len] = { 0 };
+    size_t res = aspose::ocr::asposeocr_page_tiff(uri, buffer, len, settings);
+    std::wcout << buffer << L"\n";
+    std::wcout << "performOCROnTif executed successfully";
+}
+
 void PerformOCROnImageFromUrl() {
 	// ExStart: PerformOCROnImageFromUrl
 	const char* uri = "https://www.castlegateit.co.uk/wp-content/uploads/2016/09/justified_text.png";
@@ -247,6 +260,25 @@ void RecognizeImageIgnoredCharacters() {
 
 	// ExEnd: RecognizeImageIgnoredCharacters
 	std::wcout << "RecognizeImageIgnoredCharacters executed successfully" << L'\n';
+}
+void ReconizeImageFast()
+{
+	std::string image_path = "../Data/Source/0001460985.jpg";
+
+	// Prepare buffer for result (in symbols, len_byte = len * sizeof(wchar_t))
+	const size_t len = 4096;
+	wchar_t buffer[len] = { 0 };
+
+	RecognitionSettings set;
+    set.all_image = true;
+    set.correct_skew = false;
+    set.lines_filtration = false;
+
+    size_t size = aspose::ocr::page_settings(image_path.c_str(), buffer, len, set);
+    aspose::ocr::page_fast(image_path.c_str(), buffer, len);
+
+	std::wcout << buffer;
+    std::wcout << "ReconizeImageFast executed successfully" << L'\n';
 }
 
 void GetJson() {
